@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MEDLOG S.A. Mediterranean Logistics – Προγραμματισμός Παραλαβής / Παράδοσης</title>
+
+
+<link rel="stylesheet" href="style.css">
+<script src="scripts.js" defer></script>
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<a href="https://www.goldair.gr/companies/mediterranean-logistics/" target="_blank" style="text-decoration:none;">
+  <header class="hero" style="cursor:pointer;">
+    <img src="./images/medlog.jpg" class="hero-img">
+    <div class="overlay"> 
+      <h1>ΦΟΡΜΑ ΡΑΝΤΕΒΟΥ</h1>
+      <div id="datetime"></div>
+    </div>
+  </header>
+</a>
+<div class="info-banner">
+  <span>
+    ℹ️ Το φορτίο σας έχει αφιχθεί στην αποθήκη μας. 
+    Διαθέτετε <strong>4 εργάσιμες ημέρες</strong> ελεύθερης αποθήκευσης έως 
+    <strong>31/03/2026</strong>. Μετά την παρέλευση τους εφαρμόζονται αποθηκευτικά βάσει τιμοκαταλόγου.
+  </span>
+</div>
+<div class="container">
+
+  <!-- Κάρτα Στοιχείων Φορτίου -->
+  <div class="card fade-in-section">
+    <h2>Στοιχεία Φορτίου</h2>
+
+    <div class="shipment-grid fade-in-section">
+      <div class="shipment-item">
+        <div class="shipment-title">Αριθμός Αποστολής</div>
+        <div class="shipment-value">GLS-AIR-2026-045678</div>
+      </div>
+
+      <div class="shipment-item">
+        <div class="shipment-title">Βάρος / Όγκος </div>
+        <div class="shipment-value">1.800 kg / 8.5 m³</div>
+      </div>
+
+      <div class="shipment-item">
+        <div class="shipment-title">Αποστολέας</div>
+        <div class="shipment-value">PharmaTech AE – Αθήνα</div>
+      </div>
+
+      <div class="shipment-item">
+        <div class="shipment-title">Παραλήπτης</div>
+        <div class="shipment-value">Your Company Ltd – Θεσσαλονίκη, ΒΙ.ΠΕ.</div>
+      </div>
+
+      <div class="shipment-item">
+        <div class="shipment-title">Περιγραφή Φορτίου</div>
+        <div class="shipment-value">6 Pallets – Φαρμακευτικά Προϊόντα (Temperature Controlled 2–8°C)</div>
+      </div>
+
+      <div class="shipment-item">
+        <div class="shipment-title">Ειδικές Οδηγίες</div>
+        <div class="shipment-value">
+          Επικίνδυνα (ADR), ψυκτικός χώρος & forklift, Επικίνδυνα (ADR), ψυκτικός χώρος & forklift, Επικίνδυνα (ADR), ψυκτικός χώρος & forklift, Επικίνδυνα (ADR), ψυκτικός χώρος & forklift, Επικίνδυνα (ADR), ψυκτικός χώρος & forklift, Επικίνδυνα (ADR), ψυκτικός χώρος & forklift
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!-- Κάρτα: Εισαγωγή Στοιχείων -->
+<div class="card fade-in-section">
+  <h2>Taric Codes Φορτίου</h2>
+
+<label>Συμπληρώστε έναν κωδικό σε κάθε σειρά (8 ή 10 ψηφία):</label>
+
+<div id="hsContainer">
+  <div class="hs-row">
+    <input type="text" name="hsCode[]" placeholder="π.χ. 3004900000" onkeydown="handleHsEnter(event)">
+    <button type="button" class="add-btn" onclick="addHsRow()">+</button>
+  </div>
+</div>
+
+  <label>Παρατηρήσεις (έως 200 χαρακτήρες):</label>
+  <textarea id="comments" maxlength="200" placeholder="Γράψτε παρατηρήσεις..."></textarea>
+
+</div>
+
+<!-- Κάρτα: Ημερομηνία & Διαχείριση Φορτίου -->
+<div class="card fade-in-section">
+  <h2>Επιλέξτε Ημερομηνία & Διαχείριση Φορτίου</h2>
+
+
+<label class="delivery-option">
+  <input type="checkbox" name="deliveryType" value="home" id="deliveryHome">
+  <span>Παράδοση στη διεύθυνση παραλήπτη</span>
+</label>
+
+
+<!-- BOX με δηλωμένη διεύθυνση -->
+<div id="receiverAddressBox" class="address-box-hidden">
+  <div class="address-box">
+    <strong>Δηλωμένη Διεύθυνση:</strong><br>
+    Κηφισού 125, Αιγάλεω, Αθήνα, 12134
+  </div>
+
+  <label class="delivery-option sub-option">
+    <input type="checkbox" id="changeAddress">
+    Επιθυμώ αλλαγή διεύθυνσης
+  </label>
+
+  <div id="addressFields" class="address-hidden">
+
+    <label>Αναζήτηση Διεύθυνσης:</label>
+    <input id="autocomplete" placeholder="Πληκτρολογήστε διεύθυνση..." type="text">
+
+    <label>Οδός:</label>
+    <input id="street" type="text">
+
+    <label>Αριθμός:</label>
+    <input id="street_number" type="text">
+
+    <label>Περιοχή:</label>
+    <input id="district" type="text">
+
+    <label>Πόλη:</label>
+    <input id="city" type="text">
+
+    <label>Τ.Κ.:</label>
+    <input id="postal_code" type="text">
+
+    <label>Κωδικός Εγκατάστασης (3 ψηφία):</label>
+    <input type="text" id="installationCode" maxlength="3">
+
+  </div>
+
+</div>
+
+<label class="delivery-option">
+  <input type="checkbox" name="deliveryType" value="ramp" id="deliveryRamp">
+  <span>Παραλαβή από ράμπα</span>
+</label>
+
+
+<div id="rampMap" style="display:none; margin-top:15px;">
+
+  <!-- ✅ Η διεύθυνση πάνω από τον χάρτη -->
+  <div style="font-weight:600; font-size:1.05rem; margin-bottom:8px; color:#0f2340;">
+    Κισσάβου, Ασπρόπυργος 193 00
+  </div>
+
+  <iframe 
+    src="https://www.google.com/maps?q=38.0690574,23.5735304&output=embed"
+    width="100%" 
+    height="300" 
+    style="border:0; border-radius:10px;"
+    allowfullscreen="" 
+    loading="lazy">
+  </iframe>
+
+</div>
+
+<div style="margin-top:30px;">
+  <label for="deliveryDate" style="display:block; margin-bottom:6px;">
+    Ημερομηνία Παράδοσης:
+  </label>
+
+  <input type="date" id="deliveryDate">
+  <div id="formattedDate" style="margin-top:5px; font-weight:600;"></div>
+</div>
+
+
+<!-- Customer Service επιλογή -->
+<div class="contact-service-row fade-in-section">
+  <label class="delivery-option">
+    <input type="checkbox" id="csContact">
+    Επιθυμώ επικοινωνία από το Customer Service
+  </label>
+
+<div id="csFields" class="cs-hidden">
+  <div class="cs-grid">
+
+    <div class="cs-field">
+      <label>Όνομα Επικοινωνίας:</label>
+      <input type="text" id="csName" placeholder="π.χ. Μαρία Παπαδοπούλου">
+    </div>
+
+    <div class="cs-field">
+      <label>Τηλέφωνο Επικοινωνίας:</label>
+      <input type="text" id="csPhone" placeholder="π.χ. 694 123 4567">
+    </div>
+
+  </div>
+</div>
+
+
+
+</div>
+
+
+<!-- Submit Button -->
+<div class="submit-row">
+  <button class="btn" onclick="validateDelivery()">Καταχώρηση & Επιβεβαίωση</button>
+</div>
+
+
+<footer>
+  © <span id="year"></span> MEDLOG S.A. Mediterranean Logistics| 
+Τα δεδομένα χρησιμοποιούνται μόνο για προγραμματισμό & διαγράφονται μετά την παράδοση 
+(<a href="#" id="gdprLink">GDPR</a>)
+
+</footer>
+
+<div id="gdprPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Πληροφορίες GDPR</h3>
+<p>
+Η MEDLOG S.A. Mediterranean Logistics συλλέγει και επεξεργάζεται προσωπικά δεδομένα αποκλειστικά 
+για τον προγραμματισμό και την εκτέλεση παραδόσεων/παραλαβών.
+</p>
+
+<p>
+Τα δεδομένα που συλλέγονται περιλαμβάνουν:
+- Όνομα επικοινωνίας
+- Τηλέφωνο
+- Διεύθυνση παράδοσης (εφόσον δοθεί)
+</p>
+
+<p>
+Τα δεδομένα:
+- Δεν κοινοποιούνται σε τρίτους
+- Διατηρούνται μόνο για όσο απαιτείται για την ολοκλήρωση της υπηρεσίας
+- Διαγράφονται μετά την ολοκλήρωση της παράδοσης
+</p>
+
+<p>
+Έχετε δικαίωμα πρόσβασης, διόρθωσης και διαγραφής των δεδομένων σας 
+επικοινωνώντας μαζί μας.
+</p>
+
+    <button id="closePopup" class="popup-btn">Κλείσιμο</button>
+  </div>
+</div>
+</body>
+</html>
